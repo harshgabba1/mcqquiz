@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.mcqquiz.R
 import com.example.mcqquiz.databinding.FragmentResultBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,8 +30,9 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.btnRestart.setOnClickListener {
             vm.onRestart()
+
             parentFragmentManager.beginTransaction()
-                .replace(requireActivity().findViewById<View>(android.R.id.content).id, QuestionFragment.newInstance())
+                .replace(R.id.fragment_container, QuestionFragment.newInstance())
                 .commit()
         }
 

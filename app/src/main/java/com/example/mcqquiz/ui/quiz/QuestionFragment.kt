@@ -1,14 +1,17 @@
 package com.example.mcqquiz.ui.quiz
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mcqquiz.R
 import com.example.mcqquiz.databinding.FragmentQuestionBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +22,7 @@ class QuestionFragment : Fragment() {
     private var _binding: FragmentQuestionBinding? = null
     private val binding get() = _binding!!
 
-    private val vm: QuizViewModel by viewModels()
+    private val vm: QuizViewModel by activityViewModels()
 
     companion object {
         fun newInstance() = QuestionFragment()
@@ -39,6 +42,8 @@ class QuestionFragment : Fragment() {
         optionsAdapter = OptionsAdapter { idx ->
             vm.onOptionClicked(idx)
         }
+        binding.recyclerOptions.layoutManager =
+            LinearLayoutManager(requireContext())
         binding.recyclerOptions.adapter = optionsAdapter
 
         vm.loading.observe(viewLifecycleOwner) { loading ->

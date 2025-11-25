@@ -48,12 +48,17 @@ class OptionsAdapter(
         init {
             view.setOnClickListener {
                 if (!reveal) {
-                    selectedIndex = adapterPosition
-                    notifyDataSetChanged()
-                    onClick(adapterPosition)
+                    val pos = bindingAdapterPosition
+                    if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
+
+                    selectedIndex = pos
+                    onClick(pos)     // send correct index FIRST
+
+                    notifyDataSetChanged()   // then refresh
                 }
             }
         }
+
 
         fun bind(option: String, pos: Int) {
             text.text = option

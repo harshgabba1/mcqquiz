@@ -83,7 +83,6 @@ class QuizViewModel @Inject constructor(
     fun onOptionClicked(optionIndex: Int) {
         // if already revealed for this question, ignore
         if (_revealAnswer.value == true) return
-
         _selectedOptionIndex.value = optionIndex
         _revealAnswer.value = true
 
